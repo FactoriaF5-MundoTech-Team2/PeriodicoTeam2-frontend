@@ -3,7 +3,7 @@
 import { Outlet } from "react-router";
 //import PublishButton from "./features/articles/components/PublishButton/PublishButton";
 //import SearchBar from "./features/articles/components/SearchBar/SearchBar";
-import Footer from "./components/Footer/Footer";
+//import Footer from "./components/Footer/Footer";
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
         {/* <PublishButton/> */}
         {/* <SearchBar/> */}
       </main>
-      <Footer/>
+      {/* <Footer/> */}
     </>
   )
 }
