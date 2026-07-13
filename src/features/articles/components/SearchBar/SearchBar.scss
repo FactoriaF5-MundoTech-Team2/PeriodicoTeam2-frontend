@@ -11,8 +11,9 @@
   border-radius: $border-radius;
   background: $background-card;
   color: $color-text-tertiary;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   input {
     flex: 1;
@@ -22,23 +23,22 @@
     font-size: $font-size-base;
     color: $color-text-tertiary;
     background: transparent;
-
+    
     &::placeholder {
       color: $color-text-tertiary;
     }
-}
+  }
 
   i {
-    color:$color-text-tertiary;
+    color: $color-text-tertiary;
     transition: color 0.2s ease;
   }
 
-  &:hover,
-  &:focus-within{
-    border-color:$color-text-primary;
-    box-shadow:$shadow-mobile;
+  &:hover {
+    border-color: $color-text-primary;
+    box-shadow: $shadow-mobile;
     i {
-        color:$color-text-primary;
+      color: $color-text-primary;
     }
   }
 
