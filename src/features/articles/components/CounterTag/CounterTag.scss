@@ -1,0 +1,22 @@
+@use '../../../../styles/variables' as *;
+
+.CounterTag {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+width: fit-content;
+background-color: $orange-light;
+color: $orange;
+border: 1px solid $orange;
+border-radius: 12px;
+padding: 8px 16px;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 0.7px;
+
+.bi {
+    font-size: 20px;
+    color: inherit;
+}
+}
