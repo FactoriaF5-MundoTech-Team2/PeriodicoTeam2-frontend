@@ -1,0 +1,43 @@
+@use 'variables' as *;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin card {
+  background: $background-card;
+  border:$border-default;
+  padding: $spacing-lg;
+}
+
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm { @media (max-width: 576px) { @content; } }
+  @if $breakpoint == md { @media (max-width: 768px) { @content; } }
+  @if $breakpoint == lg { @media (max-width: 992px) { @content; } }
+  @if $breakpoint == xl { @media (max-width: 1200px) { @content; } }
+}
