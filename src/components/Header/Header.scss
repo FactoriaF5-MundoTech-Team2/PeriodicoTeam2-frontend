@@ -1,0 +1,43 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  @include flex-center;
+  gap: $spacing-sm;
+
+  height: $navbar-height;
+  padding: 0 $spacing-md;
+  background-color: $background-card;
+  border-bottom: $border-default;
+
+  @include responsive(md) {
+    padding: 0 $spacing-xl;
+  }
+}
+
+.header-title {
+  font-family: $font-primary;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $color-text-primary;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  @include responsive(md) {
+    font-size: $font-size-xl;
+  }
+}
+
+.bi-person-circle {
+  @include flex-center;
+  color: $color-text-primary;
+
+  &:hover {
+    color: $color-text-secondary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-text-primary;
+    outline-offset: 2px;
+  }
+}

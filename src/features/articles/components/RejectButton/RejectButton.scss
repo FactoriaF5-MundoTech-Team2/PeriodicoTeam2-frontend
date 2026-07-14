@@ -1,0 +1,50 @@
+@use '../../../styles/abstracts/variables' as *;
+@use '../../../styles/abstracts/mixins' as *;
+
+.rejectButton {
+  @include flex-center;
+  gap: $spacing-sm;
+
+  width: 100%;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-base;
+
+  background-color: transparent;
+  color: $red;
+  border: 1px solid $red;
+  border-radius: $border-radius;
+  font-family: $font-secondary;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  @include responsive(md) {
+    width: auto;
+    font-size: $font-size-sm;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $red;
+    color: $background-card;
+  }
+
+  &:disabled {
+    color: $gray;
+    border-color: $gray-medium;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $red;
+    outline-offset: 2px;
+  }
+}
+
+.icon {
+  display: flex;
+}
+
+.errorMessage {
+  color: $red;
+  font-size: $font-size-sm;
+  margin-top: $spacing-xs;
+}
