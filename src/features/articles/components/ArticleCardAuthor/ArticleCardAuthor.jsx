@@ -31,8 +31,7 @@ const ArticleCardAuthor = ({ article, onApprove, onReject }) => {
                 <p className="ArticleCardAuthor__description">{article.description}</p>
 
                 <div className="ArticleCardAuthor__actions">
-                    <ApproveButton onClick={onApprove}/>
-                    <RejectButton onClick={onReject} />
+                    <EditArticleButton onClick={onApprove}/>
                 </div>
             </div>
             
