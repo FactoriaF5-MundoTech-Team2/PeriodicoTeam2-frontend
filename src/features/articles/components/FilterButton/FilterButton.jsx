@@ -2,7 +2,7 @@ import './FilterButton.scss'
 
 const FilterButton = ({ onClick, isApproved }) => {
   return (
-    <button className={`FilterButton ${isApproved ? 'approved' : ''}`} onClick={onClick} aria-pressed={isApproved}>
+    <button aria-label="Filtrar artículos" className={`FilterButton ${isApproved ? 'approved' : ''}`} onClick={onClick} aria-pressed={isApproved}>
       <i className='bi bi-filter' aria-hidden="true"></i>
       Filtrar
     </button>

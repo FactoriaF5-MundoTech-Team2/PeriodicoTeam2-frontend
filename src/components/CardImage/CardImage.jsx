@@ -1,12 +1,15 @@
-import './CardImage.scss'
+import "./CardImage.scss";
 
-const CardImage = ({ icon = 'bi bi-image', text = 'Imagen pendiente de subir' }) => {
+const CardImage = ({
+  icon = "bi bi-image",
+  text = "Imagen pendiente de subir",
+}) => {
   return (
-    <div className="card-image">
-      <i className={icon}></i>
+    <div className="card-image" role="img" aria-label={text}>
+      <i className={icon} aria-hidden="true"></i>
       <span>{text}</span>
     </div>
-  )
-}
+  );
+};
 
-export default CardImage
+export default CardImage;

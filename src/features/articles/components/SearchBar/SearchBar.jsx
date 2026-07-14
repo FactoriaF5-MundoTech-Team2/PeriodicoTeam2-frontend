@@ -14,16 +14,17 @@ const SearchBar = ({ onSearch, placeholder = 'Busca el artículo...' }) => {
       <i className="bi bi-search"></i>
       <input
         type="text"
+        aria-label={placeholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
       />
       {query && (
-        <button type="button" className="search-clear" onClick={() => {
+        <button type="button" className="search-clear" aria-label="Limpiar búsqueda" onClick={() => {
           setQuery('')
           onSearch('')
         }}>
-          <i className="bi bi-x"></i>
+          <i className="bi bi-x" aria-hidden="true"></i>
         </button>
       )}
     </form>
