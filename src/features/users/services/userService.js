@@ -13,3 +13,8 @@ export const createUser = async (userData, rolesIds) => {
 export const deleteUser = async (id, requestingUserId) => {
     await api.delete(`/users/${id}?requestingUserId=${requestingUserId}`);
 };
+
+export const loginUser = async (credentials) => {
+    const res = await api.post('/users/login', credentials)
+    return res.data
+}

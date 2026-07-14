@@ -1,55 +1,55 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useUser } from "../../../../context/UserContext"
-import "./RegisterPage.scss"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useUser } from "../../../../context/UserContext";
+import "./RegisterPage.scss";
 
-const ROLES = ["AUTHOR", "MANAGER"]
+const ROLES = ["AUTHOR", "MANAGER"];
 
 function RegisterPage() {
-  const { register } = useUser()
-  const navigate = useNavigate()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const { register } = useUser();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    roles: []
-  })
+    roles: [],
+  });
 
   const handleChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleRoleToggle = (role) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
       roles: prev.roles.includes(role)
-        ? prev.roles.filter(r => r !== role)
-        : [...prev.roles, role]
-    }))
-  }
+        ? prev.roles.filter((r) => r !== role)
+        : [...prev.roles, role],
+    }));
+  };
 
   const handleSubmit = async (e) => {
-  e.preventDefault()
-  setError("")
+    e.preventDefault();
+    setError("");
 
-  if (form.roles.length === 0) {
-    setError("Selecciona al menos un rol")
-    return
-  }
+    if (form.roles.length === 0) {
+      setError("Selecciona al menos un rol");
+      return;
+    }
 
-  try {
-    setLoading(true)
-    await register(form)
-    if (form.roles.includes("AUTHOR")) navigate("/author")
-    else navigate("/manager")
-  } catch (err) {
-    setError(err.response?.data?.message || "Error al registrar usuario")
-  } finally {
-    setLoading(false)
-  }
-}
+    try {
+      setLoading(true);
+      await register(form);
+      if (form.roles.includes("AUTHOR")) navigate("/author");
+      else navigate("/manager");
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al registrar usuario");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="RegisterPage">
@@ -97,7 +97,7 @@ function RegisterPage() {
           <div className="RegisterPage__field">
             <label>Rol</label>
             <div className="RegisterPage__roles">
-              {ROLES.map(role => (
+              {ROLES.map((role) => (
                 <button
                   key={role}
                   type="button"
@@ -112,17 +112,21 @@ function RegisterPage() {
 
           {error && <p className="RegisterPage__error">{error}</p>}
 
-          <button type="submit" className="RegisterPage__submit" disabled={loading}>
+          <button
+            type="submit"
+            className="RegisterPage__submit"
+            disabled={loading}
+          >
             {loading ? "Registrando..." : "Crear cuenta"}
           </button>
         </form>
 
         <p className="RegisterPage__login">
-          Ya tienes cuenta? <a href="/login">Inicia sesión</a>
+          Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;
