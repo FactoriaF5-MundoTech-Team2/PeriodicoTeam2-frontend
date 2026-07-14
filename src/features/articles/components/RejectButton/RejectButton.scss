@@ -1,0 +1,29 @@
+@use '../../../../styles/variables' as *;
+
+.RejectButton {
+display: inline-flex;
+width:fit-content;
+background-color: $color-background;
+color: $red;
+border-radius: 12px;
+padding: 8px 24px;
+border: 1px solid $red;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 14px;
+font-weight: bold;
+gap: 8px;
+transition: all 0.3s ease-in-out;
+letter-spacing: 0.7px;
+
+.bi {
+font-size: 20px;
+color: inherit;
+}
+
+&:hover,
+&.approved {
+    background-color: $red;
+    color: $color-background;
+}}
