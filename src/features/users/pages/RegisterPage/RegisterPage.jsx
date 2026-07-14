@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useUser } from "../../../context/UserContext"
+import { useUser } from "../../../../context/UserContext"
 import "./RegisterPage.scss"
 
 const ROLES = ["AUTHOR", "MANAGER"]
@@ -31,25 +31,25 @@ function RegisterPage() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+  e.preventDefault()
+  setError("")
 
-    if (form.roles.length === 0) {
-      setError("Selecciona al menos un rol")
-      return
-    }
-
-    try {
-      setLoading(true)
-      const user = await register(form)
-      if (user.roles?.includes("AUTHOR")) navigate("/author")
-      else navigate("/manager")
-    } catch (err) {
-      setError(err.response?.data?.message || "Error al registrar usuario")
-    } finally {
-      setLoading(false)
-    }
+  if (form.roles.length === 0) {
+    setError("Selecciona al menos un rol")
+    return
   }
+
+  try {
+    setLoading(true)
+    await register(form)
+    if (form.roles.includes("AUTHOR")) navigate("/author")
+    else navigate("/manager")
+  } catch (err) {
+    setError(err.response?.data?.message || "Error al registrar usuario")
+  } finally {
+    setLoading(false)
+  }
+}
 
   return (
     <div className="RegisterPage">

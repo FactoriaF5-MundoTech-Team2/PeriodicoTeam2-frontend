@@ -1,13 +1,7 @@
-import { Outlet } from "react-router";
+import AppRoutes from "./routes/AppRoutes"
 
 function App() {
-
-  return (
-    <>
-      <main>
-        <Outlet />
-      </main>
-    </>
-  )
+  return <AppRoutes />
 }
+
 export default App
