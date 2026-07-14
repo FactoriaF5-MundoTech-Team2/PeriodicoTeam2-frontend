@@ -1,0 +1,49 @@
+@use "../../../../styles/variables" as *;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 350px;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  border: $border-default;
+  border-radius: $border-radius;
+  background: $background-card;
+  color: $color-text-tertiary;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: $font-secondary;
+    font-size: $font-size-base;
+    color: $color-text-tertiary;
+    background: transparent;
+    
+    &::placeholder {
+      color: $color-text-tertiary;
+    }
+  }
+
+  i {
+    color: $color-text-tertiary;
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    border-color: $color-text-primary;
+    box-shadow: $shadow-mobile;
+    i {
+      color: $color-text-primary;
+    }
+  }
+
+  .search-clear {
+    color: $color-text-tertiary;
+    cursor: pointer;
+  }
+}

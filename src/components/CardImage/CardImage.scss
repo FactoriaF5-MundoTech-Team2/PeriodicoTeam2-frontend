@@ -1,0 +1,19 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 21.75 / 13.59375;
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-sm;
+  background: $background-image-container;
+  color: $color-text-tertiary;
+  font-size: $font-size-sm;
+  font-style: italic;
+
+  i {
+    font-size: 2rem;
+    color: $color-text-tertiary;
+  }
+}
