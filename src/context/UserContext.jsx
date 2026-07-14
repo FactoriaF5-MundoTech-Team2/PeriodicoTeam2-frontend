@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import { createUser } from "../features/users/services/userService"
+import * as authService from "../features/users/services/authService"
 
 const UserContext = createContext()
 
@@ -24,8 +25,16 @@ const logout = () => setCurrentUser(null)
 
 const hasRole = (role) => currentUser?.roles?.includes(role)
 
+const login = async (credentials) => {
+  const res = await authService.login(credentials)
+  localStorage.setItem("token", res.data.token)
+  const user = res.data.user || res.data
+  setCurrentUser(user)
+  return user
+}
+
 return (
-<UserContext.Provider value={{ currentUser, register, logout, hasRole }}>
+<UserContext.Provider value={{ currentUser, login, register, logout, hasRole }}>
     {children}
     </UserContext.Provider>
     )
