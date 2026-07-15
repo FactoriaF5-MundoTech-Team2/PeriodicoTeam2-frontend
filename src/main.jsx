@@ -3,13 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './styles/main.scss'
-import AppRoutes from './routes/AppRoutes.jsx'
-
+import App from './App.jsx'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import { UserProvider } from './context/UserContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <UserProvider>
+      <App />
+    </UserProvider>
   </StrictMode>,
 )
