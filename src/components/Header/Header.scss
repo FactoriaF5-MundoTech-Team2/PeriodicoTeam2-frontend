@@ -1,23 +1,37 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
 .header {
   @include flex-center;
   gap: $spacing-sm;
-
+  display: flex;
   height: $navbar-height;
-  padding: 0 $spacing-md;
+  padding: 1.5rem 4rem;
   background-color: $background-card;
   border-bottom: $border-default;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  align-self: stretch;
+  box-sizing: content-box;
 
   @include responsive(md) {
-    padding: 0 $spacing-xl;
+    width: 100%;
+    height: 5rem;
+    padding: 0 1.25rem;
+    gap: 1.75rem;
+  }
+  @include responsive(sm) {
+    width: 100%;
+    height: 5rem;
+    padding: 0 1.25rem;
+    gap: 1.75rem;
   }
 }
 
 .header-title {
   font-family: $font-primary;
-  font-size: $font-size-lg;
+  font-size: 2rem;
   font-weight: 700;
   color: $color-text-primary;
   letter-spacing: 0.04em;
@@ -29,6 +43,7 @@
 }
 
 .bi-person-circle {
+  font-size: 1.5rem;
   @include flex-center;
   color: $color-text-primary;
 
