@@ -1,3 +1,36 @@
+<<<<<<< HEAD
+@use "../../../../styles/variables" as *;
+
+.reject-button {
+ color: $red;
+  border: 1px solid $red;
+  border-radius: $border-radius;
+  font-family: $font-secondary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: $spacing-sm $spacing-lg;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+
+  &:hover:not(:disabled) {
+    background-color: $red;
+    color: $background-card;
+  }
+
+  &:disabled {
+    color: $gray;
+    border-color: $gray-medium;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $red;
+    outline-offset: 2px;
+  }
+}
+=======
 @use '../../../../styles/variables' as *;
 
 .RejectButton {
@@ -27,3 +60,4 @@ color: inherit;
     background-color: $red;
     color: $color-background;
 }}
+>>>>>>> dev
