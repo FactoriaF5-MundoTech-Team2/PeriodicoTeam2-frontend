@@ -38,7 +38,8 @@ const [loading, setLoading] = useState(false)
       publishDate: new Date().toISOString().split("T")[0],
       authorId: currentUser?.id,
     }
-    await articleService.create(body)
+    const article = await articleService.createArticle(body)
+    await articleService.submitForReview(article.id, currentUser?.id)
   } catch (err) {
     console.error(err)
   } finally {
@@ -47,6 +48,7 @@ const [loading, setLoading] = useState(false)
 }
 
 const handleDraft = async () => {
+  console.log("currentUser:", currentUser)
   setLoading(true)
   try {
     const body = {
@@ -55,7 +57,7 @@ const handleDraft = async () => {
       publishDate: new Date().toISOString().split("T")[0],
       authorId: currentUser?.id,
     }
-    await articleService.create(body)
+    await articleService.createArticle(body)
   } catch (err) {
     console.error(err)
   } finally {
