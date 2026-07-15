@@ -25,13 +25,10 @@
   }
 
   &:hover,
-  &.approved {
+  &.approved,
+  &:focus,
+  &.active {
     background-color: $color-text-primary;
     color: $color-background;
-  }
-
-  &:focus-visible {
-    outline: 3px solid #086bdb;
-    outline-offset: 2px;
   }
 }
