@@ -1,21 +1,20 @@
-const API_URL = import.meta.env.VITE_API_URL;
+import api from '../../../api';
 
 export const getUserById = async (id) => {
-    const res = await fetch(`${API_URL}/users/${id}`);
-    return res.json();
+    const res = await api.get(`/users/${id}`);
+    return res.data;
 };
 
-export const createUser = async (user) => {
-    const res = await fetch(`${API_URL}/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    });
-    return res.json();
+export const createUser = async (userData, rolesIds) => {
+    const res = await api.post(`/users?rolesIds=${rolesIds.join(',')}`, userData)
+    return res.data
 };
 
-export const deleteUser = async (id) => {
-    await fetch(`${API_URL}/users/${id}`, {
-        method: 'DELETE'
-    });
+export const deleteUser = async (id, requestingUserId) => {
+    await api.delete(`/users/${id}?requestingUserId=${requestingUserId}`);
 };
+
+export const loginUser = async (credentials) => {
+    const res = await api.post('/users/login', credentials)
+    return res.data
+}
