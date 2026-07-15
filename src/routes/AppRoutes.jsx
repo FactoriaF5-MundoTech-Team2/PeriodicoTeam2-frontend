@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import App from '../App'
 import AuthorHome from '../features/articles/pages/AuthorHome'
 import ManagerHome from '../features/articles/pages/ManagerHome'
 import CreateArticle from '../features/articles/pages/CreateArticle'
@@ -10,8 +11,8 @@ import ArticleForm from '../features/articles/components/ArticleForm/ArticleForm
 
 const AppRoutes = () => {
     return (
-        <BrowserRouter>
-            <Routes>
+        <Routes>
+            <Route element={<App />}>
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
@@ -21,8 +22,8 @@ const AppRoutes = () => {
                 <Route path="/articles/:id" element={<ArticleDetail />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/test-form" element={<ArticleForm />} />
-            </Routes>
-        </BrowserRouter>
+            </Route>
+        </Routes>
     )
 }
 
