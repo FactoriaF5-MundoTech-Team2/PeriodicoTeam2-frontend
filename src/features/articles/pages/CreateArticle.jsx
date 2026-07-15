@@ -1,8 +1,9 @@
+import ArticleForm from '../components/ArticleForm/ArticleForm'
 import React from 'react'
 
 const CreateArticle = () => {
   return (
-    <div>CreateArticle</div>
+    <ArticleForm></ArticleForm>
   )
 }
 
