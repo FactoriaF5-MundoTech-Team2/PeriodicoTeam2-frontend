@@ -3,6 +3,7 @@ import "./PublishButton.scss";
 const PublishButton = ({ onClick, disabled = false }) => {
   return (
     <button
+      type="button"
       aria-label="Publicar artículo"
       className="publishButton"
       onClick={onClick}
