@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import App from '../App'
-import AuthorHome from '../features/articles/pages/AuthorHome'
+import AuthorHome from '../features/articles/pages/AuthorHome/AuthorHome'
 import ManagerHome from '../features/articles/pages/ManagerHome'
 import CreateArticle from '../features/articles/pages/CreateArticle'
 import ArticleDetail from '../features/articles/pages/ArticleDetail'
