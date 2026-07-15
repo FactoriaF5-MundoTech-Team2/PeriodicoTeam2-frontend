@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 400px;
+  height: 380px;
   background-color: $background-card;
   border-radius: $border-radius;
   box-shadow: $shadow-mobile;
@@ -12,13 +13,14 @@
 
   &__image {
     width: 100%;
-    height: 240px;
+    height: 180px;
     object-fit: cover;
   }
 
   &__body {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: $spacing-md;
     padding: $spacing-lg;
   }
@@ -41,7 +43,12 @@
 
   &__title {
     font-family: $font-primary;
-    font-size: $font-size-xxl;
+    font-size: $font-size-xl;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   &__excerpt {
@@ -54,4 +61,24 @@
     gap: $spacing-md;
     margin-top: $spacing-sm;
   }
+
+  &__delete {
+    background: none;
+    border: 1px solid $red;
+    border-radius: $border-radius-sm;
+    color: $red;
+    padding: $spacing-sm;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+
+    .bi { font-size: 18px; }
+
+    &:hover {
+        background-color: $red;
+        color: $color-background;
+    }
+}
 }

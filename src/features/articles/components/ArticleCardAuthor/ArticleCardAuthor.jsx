@@ -1,41 +1,53 @@
-import './ArticleCardAuthor.scss'
-import EditArticleButton from '../EditArticleButton/EditArticleButton'
-import TagStatus from '../../../../components/Tag/TagStatus'
+import "./ArticleCardAuthor.scss";
+import EditArticleButton from "../EditArticleButton/EditArticleButton";
+import TagStatus from "../../../../components/Tag/TagStatus";
+import CardImage from "../../../../components/CardImage/CardImage";
 
-const ArticleCardAuthor = ({ article, onEdit }) => {
-    return (
-        <article className="ArticleCardAuthor">
-            {article.imageUrl && (
-                <img
-                    className="ArticleCardAuthor__image"
-                    src={article.imageUrl}
-                    alt={article.title}
-                />
-            )}
+const API_BASE = import.meta.env.VITE_API_URL.replace("/api/v1", "");
+const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
+  return (
+    <article className="ArticleCardAuthor">
+      {article.imageUrl ? (
+        <img
+          className="ArticleCardAuthor__image"
+          src={`${API_BASE}${article.imageUrl}`}
+          alt={article.title}
+        />
+      ) : (
+        <CardImage />
+      )}
 
-            <div className="ArticleCardAuthor__body">
-                <div className="ArticleCardAuthor__meta">
-                    <time dateTime={article.publishDate}>
-                        {new Date(article.publishDate).toLocaleDateString('es-ES', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                        })}
-                    </time>
-                    <TagStatus status={article.status} />
-                </div>
+      <div className="ArticleCardAuthor__body">
+        <div className="ArticleCardAuthor__meta">
+          <time dateTime={article.publishDate}>
+            {new Date(article.publishDate).toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+          <TagStatus status={article.status} />
+        </div>
 
-                <h2 className="ArticleCardAuthor__title">{article.title}</h2>
-                <p className="ArticleCardAuthor__description">{article.content}</p>
+        <h2 className="ArticleCardAuthor__title">{article.title}</h2>
+        {/* <p className="ArticleCardAuthor__description">{article.content}</p> */}
 
-                {article.status === 'DRAFT' && (
-                    <div className="ArticleCardAuthor__actions">
-                        <EditArticleButton onClick={onEdit} />
-                    </div>
-                )}
-            </div>
-        </article>
-    )
-}
+        {article.status === "DRAFT" && (
+          <div className="ArticleCardAuthor__actions">
+            <EditArticleButton onClick={onEdit} />
+            <button
+              className="ArticleCardAuthor__delete"
+              onClick={onDelete}
+              aria-label="Eliminar articulo"
+              type="button"
+            >
+              <i className="bi bi-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+};
 
-export default ArticleCardAuthor
+export default ArticleCardAuthor;

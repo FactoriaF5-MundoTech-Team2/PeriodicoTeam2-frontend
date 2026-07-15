@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../../../context/UserContext'
 import { getArticlesByAuthor } from '../../services/articleService'
+import { deleteArticle } from '../../services/articleService'
 import ArticleCardAuthor from '../../components/ArticleCardAuthor/ArticleCardAuthor'
 import FilterButton from '../../components/FilterButton/FilterButton'
 import CreateArticleButton from '../../components/CreateArticleButton/CreateArticleButton'
@@ -13,6 +14,16 @@ const AuthorHome = () => {
   const [articles, setArticles] = useState([])
   const [activeStatus, setActiveStatus] = useState('')
   const [loading, setLoading] = useState(true)
+
+  const handleDelete = async (articleId) => {
+    if (!window.confirm("'¿Seguro que quieres eliminar este artículo? Esta acción no se puede deshacer'")) return
+    try {
+      await deleteArticle(articleId, currentUser.id)
+      setArticles(prev => prev.filter(a => a.id !== articleId))
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   useEffect(() => {
     if (!currentUser) return
@@ -55,6 +66,7 @@ const AuthorHome = () => {
               key={article.id}
               article={article}
               onEdit={() => navigate(`/articles/edit/${article.id}`)}
+              onDelete={() => handleDelete(article.id)}
             />
           ))}
         </div>

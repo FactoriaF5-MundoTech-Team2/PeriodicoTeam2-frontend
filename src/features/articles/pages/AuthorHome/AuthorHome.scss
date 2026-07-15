@@ -1,4 +1,5 @@
 @use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
 
 .AuthorHome {
     max-width: $max-width;
@@ -35,7 +36,15 @@
 
 &__list {
     display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(3, 1fr);
     gap: $spacing-lg;
+
+    @include responsive(lg) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(md) {
+        grid-template-columns: 1fr;
+    }
 }
 }

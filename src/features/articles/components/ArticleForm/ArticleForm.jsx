@@ -1,13 +1,16 @@
-import { useState, useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useRef, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import DraftButton from "../DraftButton/DraftButton"
 import PublishButton from "../PublishButton/PublishButton"
 import Modal from "../../../../components/Modal/Modal"
 import "./ArticleForm.scss"
 import { useUser } from "../../../../context/UserContext"
 import * as articleService from "../../services/articleService"
+import api from "../../../../api"
 
 const ArticleForm = () => {
+  const { id } = useParams()
+  const isEditing = !!id
   const [form, setForm] = useState({
     title: "",
     content: "",
@@ -15,10 +18,27 @@ const ArticleForm = () => {
   })
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [toast, setToast] = useState("")
   const fileInputRef = useRef(null)
   const { currentUser } = useUser()
   const navigate = useNavigate()
-  const [toast, setToast] = useState("")
+
+  useEffect(() => {
+    if (!isEditing) return
+    const fetchArticle = async () => {
+      try {
+        const res = await api.get(`/articles/${id}`)
+        setForm({
+          title: res.data.title,
+          content: res.data.content,
+          image: null,
+        })
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchArticle()
+  }, [id])
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -40,7 +60,15 @@ const ArticleForm = () => {
         publishDate: new Date().toISOString().split("T")[0],
         authorId: currentUser?.id,
       }
-      await articleService.createArticle(body)
+      let article
+      if (isEditing) {
+        article = await articleService.updateArticle(id, body, currentUser?.id)
+      } else {
+        article = await articleService.createArticle(body)
+      }
+      if (form.image) {
+        await articleService.uploadImage(article.id, form.image)
+      }
       setToast("Borrador guardado correctamente")
       setTimeout(() => navigate('/author'), 2000)
     } catch (err) {
@@ -51,7 +79,6 @@ const ArticleForm = () => {
   }
 
   const handleConfirmPublish = async () => {
-    console.log("currentUser al publicar: ", currentUser)
     setShowModal(false)
     setLoading(true)
     try {
@@ -61,7 +88,15 @@ const ArticleForm = () => {
         publishDate: new Date().toISOString().split("T")[0],
         authorId: currentUser?.id,
       }
-      const article = await articleService.createArticle(body)
+      let article
+      if (isEditing) {
+        article = await articleService.updateArticle(id, body, currentUser?.id)
+      } else {
+        article = await articleService.createArticle(body)
+      }
+      if (form.image) {
+        await articleService.uploadImage(article.id, form.image)
+      }
       await articleService.submitForReview(article.id, currentUser?.id)
       navigate('/author')
     } catch (err) {
@@ -73,7 +108,10 @@ const ArticleForm = () => {
 
   return (
     <div className="ArticleForm">
-      <h1 className="ArticleForm__title">Nuevo artículo</h1>
+      <h1 className="ArticleForm__title">
+        {isEditing ? 'Editar artículo' : 'Nuevo artículo'}
+      </h1>
+
       {toast && (
         <div className="ArticleForm__toast">
           <i className="bi bi-check-circle"></i>
