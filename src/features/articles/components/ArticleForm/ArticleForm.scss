@@ -1,0 +1,124 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.ArticleForm {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: $spacing-xl;
+
+  &__title {
+    font-family: $font-primary;
+    font-size: $font-size-xxl;
+    color: $color-text-primary;
+    margin-bottom: $spacing-xl;
+    border-bottom: 1px solid $color-text-tertiary;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    label {
+      font-family: $font-secondary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      color: $color-text-secondary;
+    }
+
+    input,
+    textarea {
+      padding:$spacing-sm $spacing-md;
+      font-family: $font-secondary;
+      font-size: $font-size-base;
+      color: $color-text-primary;
+      background: $color-background;
+      outline: none;
+
+      &:focus {
+        border-color: $color-text-primary;
+      }
+
+      &::placeholder {
+        color: $color-text-tertiary;
+        font-family: $font-primary;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 200px;
+
+      &::placeholder {
+        color: $color-text-tertiary;
+        font-family: $font-secondary;
+        font-weight: 400; 
+        font-style: normal;
+        font-size: $font-size-base;
+      }
+    }
+  }
+
+  &__upload {
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-xl;
+    border: 2px dashed $outline-button;
+    border-radius: $border-radius;
+    background: $color-background;
+    color: $color-text-tertiary;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    i {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-family: $font-secondary;
+      font-size: $font-size-sm;
+      text-align: center;
+      margin: 0;
+    }
+
+    &:hover {
+      border-color: $color-text-primary;
+    }
+  }
+
+
+  &__divider {
+    border: none;
+    border-top: 1px solid $outline-button;
+    margin: $spacing-xl 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-lg;
+  }
+  &__input-title {
+    border: none;
+    border-bottom: 1px solid $color-text-tertiary;
+    border-radius: 0;
+    font-size: $font-size-base;
+  }
+}
+
+.content__textarea {
+  border-radius: 0.25rem;
+  border: 1px solid $color-text-tertiary;
+  background: $background-card;
+}

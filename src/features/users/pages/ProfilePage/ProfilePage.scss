@@ -4,8 +4,11 @@
 .ProfilePage {
   max-width: $max-width;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: $spacing-lg $spacing-md;
-
   background: $color-background;
   color: $color-text-primary;
   font-family: $font-secondary;
@@ -33,9 +36,10 @@
   background: $background-card;
   box-shadow: $shadow-mobile;
   border: $border-default;
-
   padding: $spacing-lg;
   margin: 0 0 $spacing-lg;
+  width: 100%;
+  max-width: 440px;
 }
 
 .ProfilePage__cardTitle {
@@ -48,6 +52,8 @@
 
 .ProfilePage__cardTitle--danger {
   color: $color-text-primary;
+  max-width: 440px;
+  width: 100%;
 }
 
 .ProfilePage__cardTitleRow {
@@ -85,7 +91,6 @@
 
 .ProfilePage__grid {
   display: grid;
-  grid-template-columns: 180px 1fr;
   gap: $spacing-sm $spacing-md;
   align-items: center;
 }
@@ -151,16 +156,3 @@
   color: $color-text-tertiary;
 }
 
-@media (max-width: 680px) {
-  .ProfilePage {
-    padding: $spacing-md $spacing-sm;
-  }
-
-  .ProfilePage__card {
-    padding: $spacing-md;
-  }
-
-  .ProfilePage__grid {
-    grid-template-columns: 1fr;
-  }
-}

@@ -50,7 +50,7 @@ export default function ProfilePage() {
 
           <button type="button" className="ProfilePage__dangerBtn">
             <span className="ProfilePage__dangerBtnIcon" aria-hidden="true">
-              <i class="bi bi-trash3-fill"></i>
+              <i className="bi bi-trash3-fill"></i>
             </span>
             Borrar cuenta
           </button>
