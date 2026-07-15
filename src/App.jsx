@@ -3,7 +3,15 @@ import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router";
 
 function App() {
-return <AppRoutes />
+  return (
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default App;
