@@ -1,4 +1,4 @@
-@use '../../../../styles/variables' as *;
+@use "../../../../styles/variables" as *;
 
 .ArticleCardManager {
   display: flex;
@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 400px;
   background-color: $background-card;
-  border-radius: $border-radius;
+  border: 1px solid $color-text-tertiary;
   box-shadow: $shadow-mobile;
   overflow: hidden;
 
@@ -50,8 +50,16 @@
 
   &__actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: $spacing-md;
     margin-top: $spacing-sm;
+  }
+
+  &__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: $color-text-secondary;
   }
 }
