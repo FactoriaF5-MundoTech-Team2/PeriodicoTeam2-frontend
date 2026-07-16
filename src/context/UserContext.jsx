@@ -23,13 +23,13 @@ export function UserProvider({ children }) {
         const rolesIds = roles.map(role => ROLE_IDS[role])
         const userData = { name, email, password }
         const newUser = await createUser(userData, rolesIds)
-        setCurrentUser({ ...newUser, roles })
+        saveUser({ ...newUser, roles })
         return newUser
     }
 
     const login = async ({ email, password }) => {
         const user = await loginUser({ email, password })
-        setCurrentUser(user)
+        saveUser(user)
         return user
     }
 

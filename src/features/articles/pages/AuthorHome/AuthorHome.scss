@@ -42,9 +42,10 @@
 
   &__list {
     display: flex;
-    flex-direction: row;
+    flex-wrap:wrap;
     gap: $spacing-lg;
     margin-top: $spacing-md;
+    justify-content: flex-start;
 
     @include responsive(lg) {
       flex-direction: row;

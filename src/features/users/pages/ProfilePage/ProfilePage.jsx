@@ -11,6 +11,11 @@ export default function ProfilePage() {
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
 
+  const handleLogout = () => {
+    logout()
+    navigate("/login")
+  }
+
   const handleDeleteAccount = async () => {
     try {
       await deleteUser(currentUser.id, currentUser.id)
@@ -60,10 +65,34 @@ export default function ProfilePage() {
           </div>
         </section>
 
+
         {/* Card 2 */}
         <section className="ProfilePage__card ProfilePage__card--danger">
           <div className="ProfilePage__cardTitleRow">
             <i className="bi bi-gear-fill ProfilePage__cardIcon"aria-hidden="true"
+            ></i>
+            <h3 className="ProfilePage__cardTitle ProfilePage__cardTitle--danger">
+              Cerrar sesión
+            </h3>
+          </div>
+
+          <p className="ProfilePage__cardText">
+            Haz clic aqui si quieres cerrar sesión
+          </p>
+
+          <button type="button" className="ProfilePage__dangerBtn" onClick={handleLogout}>
+            <span className="ProfilePage__dangerBtnIcon" aria-hidden="true">
+              <i className="bi bi-box-arrow-right"></i>
+            </span>
+            Cerrar sesión
+          </button>
+        </section>
+
+
+        {/* Card 3 */}
+        <section className="ProfilePage__card ProfilePage__card--danger">
+          <div className="ProfilePage__cardTitleRow">
+            <i className="bi bi-exclamation-triangle-fill ProfilePage__cardIcon"aria-hidden="true"
             ></i>
             <h3 className="ProfilePage__cardTitle ProfilePage__cardTitle--danger">
               Gestión de la cuenta

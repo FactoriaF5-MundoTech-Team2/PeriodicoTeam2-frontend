@@ -3,7 +3,8 @@
 .ArticleCardManager {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 23.125rem;
+  flex-shrink: 0;
   max-width: 400px;
   background-color: $background-card;
   border: 1px solid $color-text-tertiary;
@@ -46,7 +47,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    line-clamp: 2;  
+    line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 
