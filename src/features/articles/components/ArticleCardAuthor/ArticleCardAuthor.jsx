@@ -2,6 +2,7 @@ import "./ArticleCardAuthor.scss";
 import EditArticleButton from "../EditArticleButton/EditArticleButton";
 import TagStatus from "../../../../components/Tag/TagStatus";
 import CardImage from "../../../../components/CardImage/CardImage";
+import DeleteButton from "../DeleteButton/DeleteButton"
 
 const API_BASE = import.meta.env.VITE_API_URL.replace("/api/v1", "");
 const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
@@ -30,19 +31,12 @@ const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
         </div>
 
         <h2 className="ArticleCardAuthor__title">{article.title}</h2>
-        {/* <p className="ArticleCardAuthor__description">{article.content}</p> */}
+        <p className="ArticleCardAuthor__description">{article.content}</p>
 
         {article.status === "DRAFT" && (
           <div className="ArticleCardAuthor__actions">
             <EditArticleButton onClick={onEdit} />
-            <button
-              className="ArticleCardAuthor__delete"
-              onClick={onDelete}
-              aria-label="Eliminar articulo"
-              type="button"
-            >
-              <i className="bi bi-trash" aria-hidden="true"></i>
-            </button>
+            <DeleteButton iconOnly onClick={onDelete} />
           </div>
         )}
       </div>
