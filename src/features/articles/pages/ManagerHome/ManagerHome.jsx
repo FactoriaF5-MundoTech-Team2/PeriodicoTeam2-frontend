@@ -1,9 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ArticleCardManager from "../../components/ArticleCardManager/ArticleCardManager";
 import CounterTag from "../../components/CounterTag/CounterTag";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { getArticlesByStatus } from "../../services/articleService";
 import "./ManagerHome.scss";
 
+<<<<<<< HEAD
 const mockArticles = [
   {
     id: 1,
@@ -36,9 +39,27 @@ const mockArticles = [
   },
 ];
 
+=======
+>>>>>>> dev
 const ManagerHome = () => {
-  const [articles] = useState(mockArticles);
+  const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const data = await getArticlesByStatus("IN_REVIEW");
+        setArticles(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
 
   const filteredArticles = useMemo(
     () =>
@@ -49,48 +70,36 @@ const ManagerHome = () => {
           article.authorName.toLowerCase().includes(term)
         );
       }),
-    [articles, searchTerm],
+    [articles, searchTerm]
   );
-
-  const inReviewCount = useMemo(
-    () => articles.filter((a) => a.status === "IN_REVIEW").length,
-    [articles],
-  );
-
-  const handleApprove = (id) => {
-    // pendiente: conectar con la API para marcar como PUBLISHED
-    console.log("aprobar", id);
-  };
-
-  const handleReject = (id) => {
-    // pendiente: conectar con la API para marcar como DRAFT o eliminar
-    console.log("rechazar", id);
-  };
 
   return (
     <div className="managerHome">
       <div>
         <h1 className="manager__title">Panel del manager</h1>
         <p className="manager__paragraph">
-          Gestiona los artículos publicados y los artículos en proceso de
-          revisión.
+          Gestiona los artículos en proceso de revisión.
         </p>
       </div>
 
       <SearchBar onSearch={setSearchTerm} />
+      <CounterTag count={filteredArticles.length} label="" />
 
-      <CounterTag count={inReviewCount} label="" />
-
-      <div className="articleList">
-        {filteredArticles.map((article) => (
-          <ArticleCardManager
-            key={article.id}
-            article={article}
-            onApprove={() => handleApprove(article.id)}
-            onReject={() => handleReject(article.id)}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : filteredArticles.length === 0 ? (
+        <p>No hay artículos en revisión.</p>
+      ) : (
+        <div className="articleList">
+          {filteredArticles.map((article) => (
+            <ArticleCardManager
+              key={article.id}
+              article={article}
+              onClick={() => navigate(`/articles/${article.id}`)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

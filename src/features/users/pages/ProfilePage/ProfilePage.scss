@@ -138,8 +138,10 @@
 }
 
 .ProfilePage__dangerBtn:hover {
-  background: rgba($red, 0.12);
-  border-color: rgba($red, 0.55);
+  background: $red;
+  color: $color-background;
+  //background: rgba($red, 0.12);
+  //border-color: rgba($red, 0.55);
 }
 
 .ProfilePage__dangerBtn:active {

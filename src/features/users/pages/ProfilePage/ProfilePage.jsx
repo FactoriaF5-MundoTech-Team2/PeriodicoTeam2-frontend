@@ -1,10 +1,42 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../../context/UserContext"
+import { deleteUser } from "../../services/userService"
+import Modal from "../../../../components/Modal/Modal"
 import "./ProfilePage.scss";
 
+
 export default function ProfilePage() {
+  const { currentUser, logout } = useUser()
+  const navigate = useNavigate()
+  const [showModal, setShowModal] = useState(false)
+
+  const handleLogout = () => {
+    logout()
+    navigate("/login")
+  }
+
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteUser(currentUser.id, currentUser.id)
+      logout()
+      navigate("/")
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const roles = currentUser?.roles?.join(" / ") ?? ""
+
   return (
     <>
+      {showModal && (
+        <Modal
+          message="¿Estás seguro/a de que quieres borrar tu cuenta? Esta acción no se puede deshacer."
+          onConfirm={handleDeleteAccount}
+          onCancel={() => setShowModal(false)}
+        />
+      )}
       <div className="ProfilePage">
         {/* Top text (not a card) */}
         <div className="ProfilePage__intro">
@@ -16,15 +48,15 @@ export default function ProfilePage() {
 
         {/* Card 1 */}
         <section className="ProfilePage__card">
-          <h3 className="ProfilePage__cardTitle">Nombre usuario</h3>
+          <h3 className="ProfilePage__cardTitle">{currentUser?.name}</h3>
 
           <div className="ProfilePage__row">
-            <div className="ProfilePage__label">Rol de usuario</div>
+            <div className="ProfilePage__label">{roles}</div>
           </div>
 
           <div className="ProfilePage__grid">
             <div className="ProfilePage__gridLabel">Correo</div>
-            <div className="ProfilePage__gridValue">usuario@mundotech.com</div>
+            <div className="ProfilePage__gridValue">{currentUser?.email}</div>
 
             <div className="ProfilePage__gridLabel">Contraseña</div>
             <div className="ProfilePage__gridValue ProfilePage__gridValue--password">
@@ -33,10 +65,34 @@ export default function ProfilePage() {
           </div>
         </section>
 
+
         {/* Card 2 */}
         <section className="ProfilePage__card ProfilePage__card--danger">
           <div className="ProfilePage__cardTitleRow">
             <i className="bi bi-gear-fill ProfilePage__cardIcon"aria-hidden="true"
+            ></i>
+            <h3 className="ProfilePage__cardTitle ProfilePage__cardTitle--danger">
+              Cerrar sesión
+            </h3>
+          </div>
+
+          <p className="ProfilePage__cardText">
+            Haz clic aqui si quieres cerrar sesión
+          </p>
+
+          <button type="button" className="ProfilePage__dangerBtn" onClick={handleLogout}>
+            <span className="ProfilePage__dangerBtnIcon" aria-hidden="true">
+              <i className="bi bi-box-arrow-right"></i>
+            </span>
+            Cerrar sesión
+          </button>
+        </section>
+
+
+        {/* Card 3 */}
+        <section className="ProfilePage__card ProfilePage__card--danger">
+          <div className="ProfilePage__cardTitleRow">
+            <i className="bi bi-exclamation-triangle-fill ProfilePage__cardIcon"aria-hidden="true"
             ></i>
             <h3 className="ProfilePage__cardTitle ProfilePage__cardTitle--danger">
               Gestión de la cuenta
@@ -48,7 +104,7 @@ export default function ProfilePage() {
             realizas aquí afectarán a tu acceso general al programa.
           </p>
 
-          <button type="button" className="ProfilePage__dangerBtn">
+          <button type="button" className="ProfilePage__dangerBtn" onClick={() => setShowModal(true)}>
             <span className="ProfilePage__dangerBtnIcon" aria-hidden="true">
               <i className="bi bi-trash3-fill"></i>
             </span>

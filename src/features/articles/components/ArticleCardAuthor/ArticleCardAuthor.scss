@@ -1,9 +1,10 @@
-@use '../../../../styles/variables' as *;
+@use "../../../../styles/variables" as *;
 
 .ArticleCardAuthor {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 23.125rem;
+  flex-shrink: 0;
   max-width: 400px;
   background-color: $background-card;
   border: 1px solid $color-text-tertiary;
@@ -51,11 +52,19 @@
   }
 
   &__description {
+<<<<<<< HEAD
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: $color-text-secondary;
+=======
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: $color-text-secondary;
+>>>>>>> dev
   }
 
   &__excerpt {
@@ -81,12 +90,19 @@
     justify-content: center;
     transition: all 0.2s;
 
-    .bi { font-size: 18px; }
+    .bi {
+      font-size: 18px;
+    }
 
     &:hover {
-        background-color: $red;
-        color: $color-background;
+      background-color: $red;
+      color: $color-background;
     }
+<<<<<<< HEAD
 
   }
 }
+=======
+  }
+}
+>>>>>>> dev
