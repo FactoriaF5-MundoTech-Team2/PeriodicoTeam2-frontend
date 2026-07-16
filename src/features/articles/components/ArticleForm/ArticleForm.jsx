@@ -50,7 +50,13 @@ const ArticleForm = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) setForm((prev) => ({ ...prev, image: file }));
+    if (!file) return
+    if (file.size > 10 * 1024 * 1024) {
+      setToast("La imagen no puede superar 10MB")
+      setTimeout(() => setToast(""), 3000 )
+      return
+    }
+    setForm((prev) => ({ ...prev, image: file }));
   };
 
   const handleDraft = async () => {
@@ -72,7 +78,7 @@ const ArticleForm = () => {
         await articleService.uploadImage(article.id, form.image);
       }
       setToast("Borrador guardado correctamente");
-      setTimeout(() => navigate("/author"), 2000);
+      setTimeout(() => navigate("/author"), 3000);
     } catch (err) {
       console.error(err);
     } finally {
@@ -168,7 +174,9 @@ const ArticleForm = () => {
         </div>
 
         <div className="ArticleForm__field">
-          <label className="title__label">Imagen de portada</label>
+          <label className="title__label">Imagen de portada
+            <span className="ArticleForm__hint">Máx. 10MB</span>
+          </label>
           <div
             className="ArticleForm__upload"
             role="button"

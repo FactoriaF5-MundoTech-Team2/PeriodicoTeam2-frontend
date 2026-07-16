@@ -38,15 +38,25 @@ const ArticleDetail = () => {
   }, [id])
 
   const handleApprove = async () => {
-    await articleService.approveArticle(id, currentUser.id)
-    setModal(null)
+    try {
+      await articleService.approveArticle(id, currentUser.id)
     navigate('/manager')
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setModal(null)
+    }
   }
 
   const handleReject = async () => {
-    await articleService.rejectArticle(id, currentUser.id)
-    setModal(null)
-    navigate('/manager')
+    try {
+          await articleService.rejectArticle(id, currentUser.id)
+          navigate('/manager')
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setModal(null)
+    }
   }
 
   if (loading) return <p>Cargando...</p>
@@ -96,7 +106,7 @@ const ArticleDetail = () => {
 
         {hasRole('MANAGER') && article.status === 'IN_REVIEW' && (
           <div className="ArticleDetail__actions">
-            <RejectButton onClick={() => setModal('reject')}/>
+            <RejectButton onReject={() => setModal('reject')}/>
             <ApproveButton onClick={() => setModal('approve')}/>
           </div>
         )}
