@@ -1,50 +1,57 @@
-@use '../../../../styles/variables' as *;
-@use '../../../../styles/mixins' as *;
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
 
 .AuthorHome {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: $spacing-xl $spacing-md;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-xl;
-    
-    &__header {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  background: $color-background;
+
+  &__header {
     display: flex;
     flex-direction: column;
     gap: $spacing-sm;
 
     h1 {
-    font-family: $font-primary;
-    font-size: $font-size-xxl;
-    color: $color-text-primary;
+      font-family: $font-primary;
+      font-size: $font-size-xxl;
+      color: $color-text-primary;
+      @include responsive(sm) {
+        font-size: $font-size-xl;
+      }
     }
 
     p {
-    font-size: $font-size-sm;
-    color: $color-text-secondary;
-    max-width: 480px;
+      font-size: $font-size-base;
+      color: $color-text-secondary;
+      @include responsive(sm) {
+        font-size: $font-size-sm;
+      }
     }
-}
+  }
 
-&__actions {
+  &__actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: $spacing-md;
-}
+  }
 
-&__list {
+  &__list {
     display: flex;
-    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
     gap: $spacing-lg;
+    margin-top: $spacing-md;
 
     @include responsive(lg) {
-        grid-template-columns: repeat(2, 1fr);
+      flex-direction: row;
     }
 
     @include responsive(md) {
-        grid-template-columns: 1fr;
+      flex-direction: column;
     }
-}
+  }
 }

@@ -7,31 +7,31 @@ import "./ManagerHome.scss";
 const mockArticles = [
   {
     id: 1,
-    image:
+    imageUrl:
       "https://i.pinimg.com/1200x/c9/59/6e/c9596e1969e329ad1bf316bddbd81d92.jpg",
     title: "Plantas suculentas",
     authorName: "Nayeli Córdova Mendoza",
-    createdAt: "2023-10-24",
-    description:
+    publishDate: "2023-10-24",
+    content:
       "HADUDASHDUHASUudfushfushfusofudhfushoufhushfouhfousdhfusdhfsdksjffsfjsfjklfklsdfjlfjdfjklsdfjdsfjlksdfjklsdfjksljhfjsdhffjksjfhfhksj kjhsdfkjhskjfhfhdkfjhsdfkjsfhdkfjhskfjhdkjfhkfjhdfkjhfjdshjkfsdkhf jkdfjkhsfkjhdfkjshfkhfhsdjkfhjkdhfj dfjlkdfjdsfjklfjlkdfjlskfsgjkjñagjshgsafghfbgshhgdfvdgfvkdfvsdkhgsdfjsdgfd hsdfshdgfhsdfhsgfhjdgfs dshgfhdsgfhsfgohdsfiushpfhsdfudshfui.",
     status: "IN_REVIEW",
   },
   {
     id: 2,
-    image: null,
+    imageUrl: null,
     title: "Título",
     authorName: "Autor",
-    createdAt: "2023-10-24",
-    description: "Contenido artículo.",
+    publishDate: "2023-10-24",
+    content: "Contenido artículo.",
     status: "IN_REVIEW",
   },
   {
     id: 3,
-    image: null,
+    imageUrl: null,
     title: "Título",
     authorName: "Autor",
-    createdAt: "2023-10-24",
-    description: "Contenido artículo.",
+    publishDate: "2023-10-24",
+    content: "Contenido artículo.",
     status: "IN_REVIEW",
   },
 ];

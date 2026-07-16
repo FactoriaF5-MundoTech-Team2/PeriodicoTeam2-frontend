@@ -5,10 +5,10 @@ import TagStatus from '../../../../components/Tag/TagStatus'
 const ArticleCardManager = ({ article }) => {
   return (
     <article className="ArticleCardManager">
-      {article.image ? (
+      {article.imageUrl ? (
         <img
           className="ArticleCardManager__image"
-          src={article.image}
+          src={article.imageUrl}
           alt={article.title}
         />
       ) : (
@@ -22,8 +22,8 @@ const ArticleCardManager = ({ article }) => {
         </p>
 
         <div className="ArticleCardManager__meta">
-          <time dateTime={article.createdAt}>
-            {new Date(article.createdAt).toLocaleDateString('es-ES', {
+          <time dateTime={article.publishDate}>
+            {new Date(article.publishDate).toLocaleDateString('es-ES', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -33,7 +33,7 @@ const ArticleCardManager = ({ article }) => {
         </div>
 
         <h2 className="ArticleCardManager__title">{article.title}</h2>
-        <p className="ArticleCardManager__description">{article.description}</p>
+        <p className="ArticleCardManager__description">{article.content}</p>
 
       </div>
     </article>
