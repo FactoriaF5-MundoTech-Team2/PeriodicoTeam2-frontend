@@ -10,11 +10,13 @@
   border: 1px solid $color-text-tertiary;
   box-shadow: $shadow-mobile;
   overflow: hidden;
+  cursor: pointer;
 
   &__image {
     width: 100%;
     height: 240px;
     object-fit: cover;
+    cursor: pointer;
   }
 
   &__body {

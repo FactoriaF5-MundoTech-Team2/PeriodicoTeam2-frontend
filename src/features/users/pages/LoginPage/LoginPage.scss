@@ -57,6 +57,24 @@
     }
   }
 
+  &__register{
+    text-align: center;
+    margin-top: $spacing-lg;
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+
+    a {
+      color: $color-text-primary;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
   &__roles {
     display: flex;
     gap: $spacing-sm;

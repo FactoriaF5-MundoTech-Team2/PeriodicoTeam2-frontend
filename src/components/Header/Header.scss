@@ -29,6 +29,21 @@
   }
 }
 
+.header-user {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: $spacing-sm;
+  text-decoration: none;
+}
+
+.header-greeting {
+  flex-direction: row;
+  font-size: $font-size-sm;
+  font-family: $font-secondary;
+  color: $color-text-secondary;
+}
+
 .header-title {
   font-family: $font-primary;
   font-size: 2rem;
