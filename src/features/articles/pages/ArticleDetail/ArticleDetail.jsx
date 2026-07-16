@@ -40,7 +40,7 @@ const ArticleDetail = () => {
   const handleApprove = async () => {
     try {
       await articleService.approveArticle(id, currentUser.id)
-    navigate('/manager')
+      navigate('/manager')
     } catch (err) {
       console.error(err)
     } finally {
@@ -50,8 +50,8 @@ const ArticleDetail = () => {
 
   const handleReject = async () => {
     try {
-          await articleService.rejectArticle(id, currentUser.id)
-          navigate('/manager')
+      await articleService.rejectArticle(id, currentUser.id)
+      navigate('/manager')
     } catch (err) {
       console.error(err)
     } finally {
@@ -87,10 +87,15 @@ const ArticleDetail = () => {
 
       <div className="ArticleDetail__body">
         <div className="ArticleDetail__meta">
-          <span className="ArticleDetail__author">{article.authorName}</span>
-          <time>{new Date(article.publishDate).toLocaleDateString('es-ES', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          })}</time>
+          <span className="ArticleDetail__author-icon">
+            <i className="bi bi-person" aria-hidden="true"></i>
+          </span>
+          <div className="ArticleDetail__author-info">
+            <span className="ArticleDetail__author">{article.authorName}</span>
+            <time>{new Date(article.publishDate).toLocaleDateString('es-ES', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            })}</time>
+          </div>
         </div>
 
         <h1 className="ArticleDetail__title">{article.title}</h1>
@@ -106,8 +111,8 @@ const ArticleDetail = () => {
 
         {hasRole('MANAGER') && article.status === 'IN_REVIEW' && (
           <div className="ArticleDetail__actions">
-            <RejectButton onReject={() => setModal('reject')}/>
-            <ApproveButton onClick={() => setModal('approve')}/>
+            <RejectButton onReject={() => setModal('reject')} />
+            <ApproveButton onClick={() => setModal('approve')} />
           </div>
         )}
       </div>
