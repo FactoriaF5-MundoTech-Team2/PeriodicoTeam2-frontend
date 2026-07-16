@@ -34,7 +34,7 @@
 
     input,
     textarea {
-      padding:$spacing-sm $spacing-md;
+      padding: $spacing-sm $spacing-md;
       font-family: $font-secondary;
       font-size: $font-size-base;
       color: $color-text-primary;
@@ -62,7 +62,7 @@
       &::placeholder {
         color: $color-text-tertiary;
         font-family: $font-secondary;
-        font-weight: 400; 
+        font-weight: 400;
         font-style: normal;
         font-size: $font-size-base;
       }
@@ -97,7 +97,6 @@
     }
   }
 
-
   &__divider {
     border: none;
     border-top: 1px solid $outline-button;
@@ -117,20 +116,74 @@
   }
 
   &__toast {
-      position: fixed;
-  bottom: $spacing-xl;
-  left: 50%;
-  transform: translateX(-50%);
-  background: $color-text-primary;
-  color: $color-background;
-  padding: $spacing-sm $spacing-lg;
-  border-radius: $border-radius;
-  font-size: $font-size-sm;
-  display: flex;
-  align-items: center;
-  gap: $spacing-sm;
-  z-index: 999;
-  box-shadow: $shadow-mobile;
+    position: fixed;
+    bottom: $spacing-xl;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $color-text-primary;
+    color: $color-background;
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $border-radius;
+    font-size: $font-size-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    z-index: 999;
+    box-shadow: $shadow-mobile;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    padding: $spacing-lg;
+    border: 1px solid $outline-button;
+    border-radius: $border-radius;
+    background: $background-card;
+  }
+
+  &__sectionTitle {
+    font-family: $font-primary;
+    font-size: $font-size-lg;
+    color: $color-text-primary;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid $outline-button;
+  }
+
+  &__addSection {
+    width: 100%;
+    padding: $spacing-sm $spacing-md;
+    border: 2px dashed $outline-button;
+    border-radius: $border-radius;
+    background: transparent;
+    color: $color-text-secondary;
+    font-family: $font-secondary;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: $color-text-primary;
+      color: $color-text-primary;
+    }
+  }
+
+  &__removeSection {
+    align-self: flex-end;
+    background: none;
+    border: 1px solid $red;
+    border-radius: $border-radius-sm;
+    color: $red;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $red;
+      color: $color-background;
+    }
   }
 }
 
