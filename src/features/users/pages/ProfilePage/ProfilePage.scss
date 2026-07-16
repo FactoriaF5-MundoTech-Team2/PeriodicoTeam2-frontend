@@ -6,12 +6,16 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: $spacing-lg $spacing-md;
   background: $color-background;
   color: $color-text-primary;
   font-family: $font-secondary;
+
+  .BackButton {
+    align-self: flex-start;
+  }
 }
 
 .ProfilePage__intro {
@@ -157,4 +161,3 @@
   font-size: $font-size-sm;
   color: $color-text-tertiary;
 }
-

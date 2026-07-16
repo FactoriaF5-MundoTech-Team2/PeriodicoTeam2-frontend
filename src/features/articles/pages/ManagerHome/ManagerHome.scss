@@ -35,11 +35,7 @@
 
 .articleList {
   display: flex;
-<<<<<<< HEAD
-  flex-direction: row;
-=======
   flex-wrap:wrap;
->>>>>>> dev
   gap: $spacing-lg;
   margin-top: $spacing-md;
   justify-content: flex-start;

@@ -7,6 +7,7 @@ import "./ArticleForm.scss";
 import { useUser } from "../../../../context/UserContext";
 import * as articleService from "../../services/articleService";
 import api from "../../../../api";
+import BackButton from "../../../../components/BackButton/BackButton";
 
 const ArticleForm = () => {
   const { id } = useParams();
@@ -138,6 +139,7 @@ const ArticleForm = () => {
 
   return (
     <div className="ArticleForm">
+      <BackButton/>
       <h1 className="ArticleForm__title">
         {isEditing ? "Editar artículo" : "Nuevo artículo"}
       </h1>

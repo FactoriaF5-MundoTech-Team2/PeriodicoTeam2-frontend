@@ -31,10 +31,6 @@ const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
         </div>
 
         <h2 className="ArticleCardAuthor__title">{article.title}</h2>
-<<<<<<< HEAD
-        <p className="ArticleCardAuthor__description">{article.content}</p>
-=======
->>>>>>> dev
 
         {article.status === "DRAFT" && (
           <div className="ArticleCardAuthor__actions">

@@ -52,19 +52,11 @@
   }
 
   &__description {
-<<<<<<< HEAD
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  color: $color-text-secondary;
-=======
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     color: $color-text-secondary;
->>>>>>> dev
   }
 
   &__excerpt {
@@ -98,11 +90,5 @@
       background-color: $red;
       color: $color-background;
     }
-<<<<<<< HEAD
-
   }
 }
-=======
-  }
-}
->>>>>>> dev
