@@ -1,14 +1,14 @@
-@use '../../../../styles/variables' as *;
-@use '../../../../styles/mixins' as *;
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
 
 .managerHome {
   max-width: $max-width;
   margin: 0 auto;
-  padding: $spacing-xl $spacing-md $spacing-xxl;
+  padding: $spacing-xl $spacing-md;
   background: $color-background;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  gap:$spacing-xl;
+  gap: $spacing-xl;
 }
 
 .manager__title {
@@ -17,6 +17,9 @@
   font-weight: 700;
   color: $color-text-primary;
   margin-bottom: $spacing-xs;
+  @include responsive(sm) {
+    font-size: $font-size-xl;
+  }
 }
 
 .manager__paragraph {
@@ -25,19 +28,22 @@
   font-size: $font-size-base;
   line-height: 1.5;
   margin-bottom: $spacing-lg;
+  @include responsive(sm) {
+    font-size: $font-size-sm;
+  }
 }
 
 .articleList {
   display: flex;
-   flex-direction: row;  
+  flex-direction: row;
   gap: $spacing-lg;
   margin-top: $spacing-md;
 
   @include responsive(lg) {
-    flex-direction: row;  
+    flex-direction: row;
   }
 
-  @include responsive(sm) {  
-     flex-direction: column;           
+  @include responsive(sm) {
+    flex-direction: column;
   }
 }
