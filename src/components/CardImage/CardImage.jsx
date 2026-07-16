@@ -1,4 +1,4 @@
-import "./CardImage.scss";
+import './CardImage.scss'
 
 const CardImage = ({
   icon = "bi bi-image",

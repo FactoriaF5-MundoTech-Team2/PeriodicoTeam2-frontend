@@ -115,6 +115,23 @@
     border-radius: 0;
     font-size: $font-size-base;
   }
+
+  &__toast {
+      position: fixed;
+  bottom: $spacing-xl;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-text-primary;
+  color: $color-background;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  z-index: 999;
+  box-shadow: $shadow-mobile;
+  }
 }
 
 .content__textarea {

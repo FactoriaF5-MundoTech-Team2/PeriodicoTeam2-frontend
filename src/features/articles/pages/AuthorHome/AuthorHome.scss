@@ -1,0 +1,50 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.AuthorHome {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: $spacing-xl $spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    
+    &__header {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    h1 {
+    font-family: $font-primary;
+    font-size: $font-size-xxl;
+    color: $color-text-primary;
+    }
+
+    p {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    max-width: 480px;
+    }
+}
+
+&__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+}
+
+&__list {
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+
+    @include responsive(lg) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive(md) {
+        grid-template-columns: 1fr;
+    }
+}
+}

@@ -48,3 +48,12 @@ export const rejectArticle = async (id, managerId) => {
 export const deleteArticle = async (id, authorId) => {
     await api.delete(`/articles/${id}?authorId=${authorId}`)
 }
+
+export const uploadImage = async (articleId, file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    const res = await api.post(`/images/${articleId}`, formData, {
+        headers: {'Content-Type': 'multipart/form-data'}
+    })
+    return res.data
+}

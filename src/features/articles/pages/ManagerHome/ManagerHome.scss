@@ -1,0 +1,43 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.managerHome {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-md $spacing-xxl;
+  background: $color-background;
+  display:flex;
+  flex-direction: column;
+  gap:$spacing-xl;
+}
+
+.manager__title {
+  font-family: $font-primary;
+  font-size: $font-size-xxl;
+  font-weight: 700;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.manager__paragraph {
+  font-family: $font-secondary;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  margin-bottom: $spacing-lg;
+}
+
+.articleList {
+  display: flex;
+   flex-direction: row;  
+  gap: $spacing-lg;
+  margin-top: $spacing-md;
+
+  @include responsive(lg) {
+    flex-direction: row;  
+  }
+
+  @include responsive(sm) {  
+     flex-direction: column;           
+  }
+}
