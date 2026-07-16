@@ -3,7 +3,8 @@
 
 .card-image {
   width: 100%;
-  aspect-ratio: 21.75 / 13.59375;
+  height: 240px;
+  flex-shrink: 0;
   @include flex-center;
   flex-direction: column;
   gap: $spacing-sm;

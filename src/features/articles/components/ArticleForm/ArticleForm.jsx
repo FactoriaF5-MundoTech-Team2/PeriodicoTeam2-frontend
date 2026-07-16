@@ -1,22 +1,44 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import DraftButton from "../DraftButton/DraftButton"
 import PublishButton from "../PublishButton/PublishButton"
+import Modal from "../../../../components/Modal/Modal"
 import "./ArticleForm.scss"
 import { useUser } from "../../../../context/UserContext"
 import * as articleService from "../../services/articleService"
+import api from "../../../../api"
 
 const ArticleForm = () => {
+  const { id } = useParams()
+  const isEditing = !!id
   const [form, setForm] = useState({
     title: "",
     content: "",
-    quote: "",
-    quoteAuthor: "",
     image: null,
   })
+  const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [toast, setToast] = useState("")
   const fileInputRef = useRef(null)
-
   const { currentUser } = useUser()
-const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!isEditing) return
+    const fetchArticle = async () => {
+      try {
+        const res = await api.get(`/articles/${id}`)
+        setForm({
+          title: res.data.title,
+          content: res.data.content,
+          image: null,
+        })
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchArticle()
+  }, [id])
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -29,45 +51,81 @@ const [loading, setLoading] = useState(false)
     if (file) setForm((prev) => ({ ...prev, image: file }))
   }
 
-  const handlePublish = async () => {
-  setLoading(true)
-  try {
-    const body = {
-      title: form.title,
-      content: form.content,
-      publishDate: new Date().toISOString().split("T")[0],
-      authorId: currentUser?.id,
+  const handleDraft = async () => {
+    setLoading(true)
+    try {
+      const body = {
+        title: form.title,
+        content: form.content,
+        publishDate: new Date().toISOString().split("T")[0],
+        authorId: currentUser?.id,
+      }
+      let article
+      if (isEditing) {
+        article = await articleService.updateArticle(id, body, currentUser?.id)
+      } else {
+        article = await articleService.createArticle(body)
+      }
+      if (form.image) {
+        await articleService.uploadImage(article.id, form.image)
+      }
+      setToast("Borrador guardado correctamente")
+      setTimeout(() => navigate('/author'), 2000)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
     }
-    const article = await articleService.createArticle(body)
-    await articleService.submitForReview(article.id, currentUser?.id)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    setLoading(false)
   }
-}
 
-const handleDraft = async () => {
-  console.log("currentUser:", currentUser)
-  setLoading(true)
-  try {
-    const body = {
-      title: form.title,
-      content: form.content,
-      publishDate: new Date().toISOString().split("T")[0],
-      authorId: currentUser?.id,
+  const handleConfirmPublish = async () => {
+    setShowModal(false)
+    setLoading(true)
+    try {
+      const body = {
+        title: form.title,
+        content: form.content,
+        publishDate: new Date().toISOString().split("T")[0],
+        authorId: currentUser?.id,
+      }
+      let article
+      if (isEditing) {
+        article = await articleService.updateArticle(id, body, currentUser?.id)
+      } else {
+        article = await articleService.createArticle(body)
+      }
+      if (form.image) {
+        await articleService.uploadImage(article.id, form.image)
+      }
+      await articleService.submitForReview(article.id, currentUser?.id)
+      navigate('/author')
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
     }
-    await articleService.createArticle(body)
-  } catch (err) {
-    console.error(err)
-  } finally {
-    setLoading(false)
   }
-}
 
   return (
     <div className="ArticleForm">
-      <h1 className="ArticleForm__title">Nuevo artículo</h1>
+      <h1 className="ArticleForm__title">
+        {isEditing ? 'Editar artículo' : 'Nuevo artículo'}
+      </h1>
+
+      {toast && (
+        <div className="ArticleForm__toast">
+          <i className="bi bi-check-circle"></i>
+          {toast}
+        </div>
+      )}
+
+      {showModal && (
+        <Modal
+          message="¿Estás seguro/a de que quieres enviar este artículo a revisión del manager? Esta acción no se puede deshacer."
+          onConfirm={handleConfirmPublish}
+          onCancel={() => setShowModal(false)}
+        />
+      )}
 
       <form className="ArticleForm__form">
         <div className="ArticleForm__field">
@@ -79,7 +137,6 @@ const handleDraft = async () => {
             value={form.title}
             onChange={handleChange}
             placeholder="Escribe un titular llamativo..."
-            aria-label="Título del artículo"
             className="ArticleForm__input-title"
           />
         </div>
@@ -92,7 +149,6 @@ const handleDraft = async () => {
             tabIndex={0}
             onClick={handleImageClick}
             onKeyDown={(e) => e.key === "Enter" && handleImageClick()}
-            aria-label="Subir imagen de portada"
           >
             <i className="bi bi-camera" aria-hidden="true"></i>
             <p>{form.image ? form.image.name : "Suelta tu imagen aquí, o busca una"}</p>
@@ -102,7 +158,6 @@ const handleDraft = async () => {
               accept="image/*"
               onChange={handleImageChange}
               hidden
-              aria-hidden="true"
             />
           </div>
         </div>
@@ -116,7 +171,6 @@ const handleDraft = async () => {
             onChange={handleChange}
             placeholder="Comienza a escribir tu artículo..."
             rows={10}
-            aria-label="Contenido del artículo"
             className="content__textarea"
           />
         </div>
@@ -126,7 +180,7 @@ const handleDraft = async () => {
 
       <div className="ArticleForm__actions">
         <DraftButton onClick={handleDraft} disabled={loading} />
-        <PublishButton onClick={handlePublish} disabled={loading} />
+        <PublishButton onClick={() => setShowModal(true)} disabled={loading} />
       </div>
     </div>
   )
