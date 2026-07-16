@@ -5,9 +5,9 @@ import CardImage from "../../../../components/CardImage/CardImage";
 import DeleteButton from "../DeleteButton/DeleteButton"
 
 const API_BASE = import.meta.env.VITE_API_URL.replace("/api/v1", "");
-const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
+const ArticleCardAuthor = ({ article, onEdit, onDelete, onClick }) => {
   return (
-    <article className="ArticleCardAuthor">
+    <article className="ArticleCardAuthor" onClick={onClick}>
       {article.imageUrl ? (
         <img
           className="ArticleCardAuthor__image"
@@ -34,8 +34,8 @@ const ArticleCardAuthor = ({ article, onEdit, onDelete }) => {
 
         {article.status === "DRAFT" && (
           <div className="ArticleCardAuthor__actions">
-            <EditArticleButton onClick={onEdit} />
-            <DeleteButton iconOnly onClick={onDelete} />
+            <EditArticleButton onClick={(e) => { e.stopPropagation(); onEdit() }} />
+            <DeleteButton iconOnly onClick={(e) => { e.stopPropagation(); onDelete() }} />
           </div>
         )}
       </div>
