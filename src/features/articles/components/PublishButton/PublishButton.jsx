@@ -10,7 +10,7 @@ const PublishButton = ({ onClick, disabled = false }) => {
       disabled={disabled}
     >
       <i className="bi bi-upload" aria-hidden="true"></i>
-      <span>Publicar</span>
+      <span>Enviar a revisión</span>
     </button>
   );
 };

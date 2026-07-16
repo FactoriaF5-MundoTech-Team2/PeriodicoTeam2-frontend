@@ -6,6 +6,7 @@ import Modal from '../../../../components/Modal/Modal'
 import './ArticleDetail.scss'
 import RejectButton from '../../components/RejectButton/RejectButton'
 import ApproveButton from '../../components/ApproveButton/ApproveButton'
+import BackButton from '../../../../components/BackButton/BackButton'
 
 const API_BASE = import.meta.env.VITE_API_URL.replace('/api/v1', '')
 
@@ -78,6 +79,7 @@ const ArticleDetail = () => {
           onCancel={() => setModal(null)}
         />
       )}
+      <BackButton />
 
       {article.imageUrl && (
         <div className="ArticleDetail__cover">

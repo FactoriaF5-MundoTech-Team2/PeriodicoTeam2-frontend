@@ -4,6 +4,7 @@ import { useUser } from "../../../../context/UserContext"
 import { deleteUser } from "../../services/userService"
 import Modal from "../../../../components/Modal/Modal"
 import "./ProfilePage.scss";
+import BackButton from "../../../../components/BackButton/BackButton";
 
 
 export default function ProfilePage() {
@@ -37,7 +38,10 @@ export default function ProfilePage() {
           onCancel={() => setShowModal(false)}
         />
       )}
+
+
       <div className="ProfilePage">
+      <BackButton />
         {/* Top text (not a card) */}
         <div className="ProfilePage__intro">
           <h2 className="ProfilePage__introTitle">Ajustes de usuario</h2>
