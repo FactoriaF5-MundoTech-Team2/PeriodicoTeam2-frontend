@@ -33,7 +33,8 @@ export default function ProfilePage() {
     <>
       {showModal && (
         <Modal
-          message="¿Estás seguro/a de que quieres borrar tu cuenta? Esta acción no se puede deshacer."
+          message="¿Estás seguro/a de que quieres eliminar tu cuenta? Esta acción no se puede deshacer."
+          confirmText="Sí, eliminar"
           onConfirm={handleDeleteAccount}
           onCancel={() => setShowModal(false)}
         />
