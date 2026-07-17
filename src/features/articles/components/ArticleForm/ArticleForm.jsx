@@ -1,115 +1,147 @@
-import { useState, useRef, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import DraftButton from "../DraftButton/DraftButton"
-import PublishButton from "../PublishButton/PublishButton"
-import Modal from "../../../../components/Modal/Modal"
-import "./ArticleForm.scss"
-import { useUser } from "../../../../context/UserContext"
-import * as articleService from "../../services/articleService"
-import api from "../../../../api"
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import DraftButton from "../DraftButton/DraftButton";
+import PublishButton from "../PublishButton/PublishButton";
+import Modal from "../../../../components/Modal/Modal";
+import "./ArticleForm.scss";
+import { useUser } from "../../../../context/UserContext";
+import * as articleService from "../../services/articleService";
+import api from "../../../../api";
+import BackButton from "../../../../components/BackButton/BackButton";
 
 const ArticleForm = () => {
-  const { id } = useParams()
-  const isEditing = !!id
+  const { id } = useParams();
+  const isEditing = !!id;
   const [form, setForm] = useState({
     title: "",
-    content: "",
     image: null,
-  })
-  const [loading, setLoading] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-  const [toast, setToast] = useState("")
-  const fileInputRef = useRef(null)
-  const { currentUser } = useUser()
-  const navigate = useNavigate()
+    sections: [{ subtitle: "", content: "" }],
+  });
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [toast, setToast] = useState("");
+  const fileInputRef = useRef(null);
+  const { currentUser } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isEditing) return
+    if (!isEditing) return;
     const fetchArticle = async () => {
       try {
-        const res = await api.get(`/articles/${id}`)
+        const res = await api.get(`/articles/${id}`);
         setForm({
           title: res.data.title,
-          content: res.data.content,
+          sections: JSON.parse(
+            res.data.content || '[{"subtitle":"","content":""}]',
+          ),
           image: null,
-        })
+        });
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    }
-    fetchArticle()
-  }, [id])
+    };
+    fetchArticle();
+  }, [id]);
 
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-  const handleImageClick = () => fileInputRef.current?.click()
+  const handleImageClick = () => fileInputRef.current?.click();
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    if (file) setForm((prev) => ({ ...prev, image: file }))
-  }
+    const file = e.target.files[0];
+    if (!file) return
+    if (file.size > 10 * 1024 * 1024) {
+      setToast("La imagen no puede superar 10MB")
+      setTimeout(() => setToast(""), 3000 )
+      return
+    }
+    setForm((prev) => ({ ...prev, image: file }));
+  };
 
   const handleDraft = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const body = {
         title: form.title,
-        content: form.content,
+        content: JSON.stringify(form.sections),
         publishDate: new Date().toISOString().split("T")[0],
         authorId: currentUser?.id,
-      }
-      let article
+      };
+      let article;
       if (isEditing) {
-        article = await articleService.updateArticle(id, body, currentUser?.id)
+        article = await articleService.updateArticle(id, body, currentUser?.id);
       } else {
-        article = await articleService.createArticle(body)
+        article = await articleService.createArticle(body);
       }
       if (form.image) {
-        await articleService.uploadImage(article.id, form.image)
+        await articleService.uploadImage(article.id, form.image);
       }
-      setToast("Borrador guardado correctamente")
-      setTimeout(() => navigate('/author'), 2000)
+      setToast("Borrador guardado correctamente");
+      setTimeout(() => navigate("/author"), 3000);
     } catch (err) {
-      console.error(err)
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleConfirmPublish = async () => {
-    setShowModal(false)
-    setLoading(true)
+    setShowModal(false);
+    setLoading(true);
     try {
       const body = {
         title: form.title,
-        content: form.content,
+        content: JSON.stringify(form.sections), // ← serializa el array
         publishDate: new Date().toISOString().split("T")[0],
         authorId: currentUser?.id,
-      }
-      let article
+      };
+      let article;
       if (isEditing) {
-        article = await articleService.updateArticle(id, body, currentUser?.id)
+        article = await articleService.updateArticle(id, body, currentUser?.id);
       } else {
-        article = await articleService.createArticle(body)
+        article = await articleService.createArticle(body);
       }
       if (form.image) {
-        await articleService.uploadImage(article.id, form.image)
+        await articleService.uploadImage(article.id, form.image);
       }
-      await articleService.submitForReview(article.id, currentUser?.id)
-      navigate('/author')
+      await articleService.submitForReview(article.id, currentUser?.id);
+      navigate("/author");
     } catch (err) {
-      console.error(err)
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
+  const addSection = () => {
+    setForm((prev) => ({
+      ...prev,
+      sections: [...prev.sections, { subtitle: "", content: "" }],
+    }));
+  };
+
+  const updateSection = (index, field, value) => {
+    setForm((prev) => {
+      const sections = [...prev.sections];
+      sections[index] = { ...sections[index], [field]: value };
+      return { ...prev, sections };
+    });
+  };
+
+  const removeSection = (index) => {
+    setForm((prev) => ({
+      ...prev,
+      sections: prev.sections.filter((_, i) => i !== index),
+    }));
+  };
 
   return (
     <div className="ArticleForm">
+      <BackButton/>
       <h1 className="ArticleForm__title">
-        {isEditing ? 'Editar artículo' : 'Nuevo artículo'}
+        {isEditing ? "Editar artículo" : "Nuevo artículo"}
       </h1>
 
       {toast && (
@@ -129,7 +161,9 @@ const ArticleForm = () => {
 
       <form className="ArticleForm__form">
         <div className="ArticleForm__field">
-          <label htmlFor="title" className="title__label">Título del artículo</label>
+          <label htmlFor="title" className="title__label">
+            Título del artículo
+          </label>
           <input
             id="title"
             name="title"
@@ -142,7 +176,9 @@ const ArticleForm = () => {
         </div>
 
         <div className="ArticleForm__field">
-          <label className="title__label">Imagen de portada</label>
+          <label className="title__label">Imagen de portada
+            <span className="ArticleForm__hint">Máx. 10MB</span>
+          </label>
           <div
             className="ArticleForm__upload"
             role="button"
@@ -151,7 +187,11 @@ const ArticleForm = () => {
             onKeyDown={(e) => e.key === "Enter" && handleImageClick()}
           >
             <i className="bi bi-camera" aria-hidden="true"></i>
-            <p>{form.image ? form.image.name : "Suelta tu imagen aquí, o busca una"}</p>
+            <p>
+              {form.image
+                ? form.image.name
+                : "Suelta tu imagen aquí, o busca una"}
+            </p>
             <input
               ref={fileInputRef}
               type="file"
@@ -162,18 +202,57 @@ const ArticleForm = () => {
           </div>
         </div>
 
-        <div className="ArticleForm__field">
-          <label htmlFor="content" className="title__label">Contenido del artículo</label>
-          <textarea
-            id="content"
-            name="content"
-            value={form.content}
-            onChange={handleChange}
-            placeholder="Comienza a escribir tu artículo..."
-            rows={10}
-            className="content__textarea"
-          />
-        </div>
+        {form.sections.map((section, index) => (
+          <div key={index} className="ArticleForm__section">
+            <h3 className="ArticleForm__sectionTitle">Sección {index + 1}</h3>
+
+            <div className="ArticleForm__field">
+              <label>Subtítulo artículo</label>
+              <input
+                type="text"
+                name="subtitle"
+                value={section.subtitle}
+                onChange={(e) =>
+                  updateSection(index, "subtitle", e.target.value)
+                }
+                placeholder="Ponle un subtítulo..."
+                className="ArticleForm__input"
+              />
+            </div>
+
+            <div className="ArticleForm__field">
+              <label>Contenido del artículo</label>
+              <textarea
+                name="content"
+                value={section.content}
+                onChange={(e) =>
+                  updateSection(index, "content", e.target.value)
+                }
+                placeholder="Escribe tu artículo..."
+                rows={6}
+                className="content__textarea"
+              />
+            </div>
+
+            {form.sections.length > 1 && (
+              <button
+                type="button"
+                className="ArticleForm__removeSection"
+                onClick={() => removeSection(index)}
+              >
+                Eliminar sección
+              </button>
+            )}
+          </div>
+        ))}
+
+        <button
+          type="button"
+          className="ArticleForm__addSection"
+          onClick={addSection}
+        >
+          + Añadir sección
+        </button>
       </form>
 
       <hr className="ArticleForm__divider" />
@@ -183,7 +262,7 @@ const ArticleForm = () => {
         <PublishButton onClick={() => setShowModal(true)} disabled={loading} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ArticleForm
+export default ArticleForm;

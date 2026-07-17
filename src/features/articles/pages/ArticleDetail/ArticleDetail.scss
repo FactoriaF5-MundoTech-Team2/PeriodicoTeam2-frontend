@@ -1,0 +1,105 @@
+@use "../../../../styles/variables" as *;
+
+.ArticleDetail {
+  max-width: $max-width;
+  margin: 0 auto;
+
+  &__cover {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__body {
+    padding: $spacing-lg $spacing-md $spacing-xxl;
+  }
+
+  &__title {
+    font-family: $font-primary;
+    font-size: $font-size-xxl;
+    font-weight: 700;
+    color: $color-text-primary;
+    line-height: 1.2;
+    margin: $spacing-md 0 $spacing-lg;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding-bottom: $spacing-md;
+    margin-bottom: $spacing-lg;
+    border-bottom: $border-default;
+  }
+
+  &__author-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: $border-radius-sm;
+    background: $gray-light;
+    color: $gray;
+    flex-shrink: 0;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  &__author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__author {
+    font-family: $font-secondary;
+    font-size: $font-size-base;
+    color: $color-text-primary;
+  }
+
+  time {
+    font-family: $font-secondary;
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+  }
+
+  &__section {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__subtitle {
+    font-family: $font-primary;
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $color-text-primary;
+    margin: $spacing-xl 0 $spacing-md;
+  }
+
+  &__content {
+    font-family: $font-secondary;
+    font-size: $font-size-base;
+    color: $color-text-secondary;
+    line-height: 1.8;
+    margin: 0 0 $spacing-md;
+    white-space: pre-line;
+    word-break: break-word;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-md;
+    margin-top: $spacing-xl;
+    padding-top: $spacing-lg;
+    border-top: $border-default;
+  }
+}

@@ -6,12 +6,16 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: $spacing-lg $spacing-md;
   background: $color-background;
   color: $color-text-primary;
   font-family: $font-secondary;
+
+  .BackButton {
+    align-self: flex-start;
+  }
 }
 
 .ProfilePage__intro {
@@ -138,8 +142,10 @@
 }
 
 .ProfilePage__dangerBtn:hover {
-  background: rgba($red, 0.12);
-  border-color: rgba($red, 0.55);
+  background: $red;
+  color: $color-background;
+  //background: rgba($red, 0.12);
+  //border-color: rgba($red, 0.55);
 }
 
 .ProfilePage__dangerBtn:active {
@@ -155,4 +161,3 @@
   font-size: $font-size-sm;
   color: $color-text-tertiary;
 }
-

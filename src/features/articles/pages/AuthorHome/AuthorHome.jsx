@@ -96,6 +96,7 @@ const AuthorHome = () => {
               <ArticleCardAuthor
                 key={article.id}
                 article={article}
+                onClick={() => navigate(`/articles/${article.id}`)}
                 onEdit={() => navigate(`/articles/edit/${article.id}`)}
                 onDelete={() => handleRequestDelete(article.id)}
               />

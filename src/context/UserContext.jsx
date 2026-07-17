@@ -10,32 +10,32 @@ const ROLE_IDS = {
 
 export function UserProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(() => {
-        const saved = localStorage.getItem("currentUser")
+        const saved = sessionStorage.getItem("currentUser")
         return saved ? JSON.parse(saved) : null
     })
 
     const saveUser = (user) => {
         setCurrentUser(user)
-        localStorage.setItem("currentUser", JSON.stringify(user))
+        sessionStorage.setItem("currentUser", JSON.stringify(user))
     }
 
     const register = async ({ name, email, password, roles }) => {
         const rolesIds = roles.map(role => ROLE_IDS[role])
         const userData = { name, email, password }
         const newUser = await createUser(userData, rolesIds)
-        setCurrentUser({ ...newUser, roles })
+        saveUser({ ...newUser, roles })
         return newUser
     }
 
     const login = async ({ email, password }) => {
         const user = await loginUser({ email, password })
-        setCurrentUser(user)
+        saveUser(user)
         return user
     }
 
     const logout = () => {
         setCurrentUser(null)
-        localStorage.removeItem("currentUser")
+        sessionStorage.removeItem("currentUser")
     }
 
     const hasRole = (role) => currentUser?.roles?.includes(role)
