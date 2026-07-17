@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .Modal {
   background: $background-card;
@@ -41,16 +41,41 @@
       font-weight: 600;
       cursor: pointer;
       border: none;
+
+      transition:
+        transform 0.06s ease,
+        filter 0.15s ease,
+        background-color 0.15s ease;
     }
   }
 
-  &__cancel {
-    background: $gray-light;
+  &___cancel {
+    background: $gray-medium;
     color: $color-text-secondary;
+
+    &:hover {
+      background: $color-text-primary;
+      color: $background-card;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
-  &__confirm {
-    background: $color-text-primary;
-    color: $color-background;
+  &___confirm {
+    background: $gray-medium;
+    color: $color-text-secondary;
+
+    &:hover {
+      background: $color-text-primary;
+      color: $background-card;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 }

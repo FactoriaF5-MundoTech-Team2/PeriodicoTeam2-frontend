@@ -60,6 +60,7 @@ const AuthorHome = () => {
       {showModal && (
         <Modal
           message="¿Seguro que quieres eliminar este artículo? Esta acción no se puede deshacer"
+          confirmText="Sí, eliminar"
           onConfirm={handleConfirmDelete}
           onCancel={() => {
             setShowModal(false);
