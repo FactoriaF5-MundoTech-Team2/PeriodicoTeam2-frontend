@@ -253,4 +253,5 @@ Main entities and relationships:
 - [Viviana Andrango](https://github.com/alvi103-png)
 - [Johanna Monroy](https://github.com/Johamonroy20)
 - [Nayeli Córdova](https://github.com/nagicome03)
+- [Chiara Di Maio](https://github.com/chdimaio)
 
